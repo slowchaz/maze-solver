@@ -75,12 +75,20 @@ class Cell:
 
     if self.has_left_wall:
       self._win.draw_line(left_wall)
+    else:
+      self._win.draw_line(left_wall, "#ececec")
     if self.has_right_wall:
       self._win.draw_line(right_wall)
+    else:
+      self._win.draw_line(right_wall, "#ececec")
     if self.has_top_wall:
       self._win.draw_line(top_wall)
+    else:
+      self._win.draw_line(top_wall, "#ececec")
     if self.has_bottom_wall:
       self._win.draw_line(bottom_wall)
+    else:
+      self._win.draw_line(bottom_wall, "#ececec")
 
 
   def draw_move(self, to_cell, undo=False):
@@ -126,4 +134,15 @@ class Cell:
         line = Line(Point(cell_two_x_center, cell_two_y_center), Point(cell_two_x_center, to_cell._y1))
         self._win.draw_line(line, color)
 
+  def break_wall(self, wall):
+    if wall == 0:
+      self.has_left_wall = False
+    elif wall == 1:
+      self.has_right_wall = False
+    elif wall == 2:
+      self.has_top_wall = False
+    elif wall == 3:
+      self.has_bottom_wall = False
+    else:
+      raise ValueError("Invalid wall value")
     
