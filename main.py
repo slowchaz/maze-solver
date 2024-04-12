@@ -18,7 +18,7 @@ def main():
 
     # win.draw_line(line, "teal")
 
-    cell = Cell(150, 150, 300, 300)
+    cell = Cell(150, 150, 300, 300, False, True, False, True, True)
     win.draw_cell(cell, "teal")
 
     win.wait_for_close()

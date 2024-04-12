@@ -44,7 +44,7 @@ class Line:
       canvas.pack(fill=BOTH, expand=1)
 
 class Cell:
-  def __init__(self, x1, y1, x2, y2, win=True, has_left_wall=True, has_right_wall=True, has_top_wall=True, has_bottom_wall=True, ):
+  def __init__(self, x1, y1, x2, y2, win, has_left_wall=True, has_right_wall=True, has_top_wall=True, has_bottom_wall=True, ):
     self.has_left_wall = has_left_wall
     self.has_right_wall = has_right_wall
     self.has_top_wall = has_top_wall
@@ -61,14 +61,18 @@ class Cell:
     bottom_right = Point(self._x2, self._y2)
     bottom_left = Point(self._x1, self._y2)
 
-    top_wall = Line(top_left, top_right)
-    right_wall = Line(top_right, bottom_right)
-    bottom_wall = Line(bottom_right, bottom_left)
     left_wall = Line(bottom_left, top_left)
+    right_wall = Line(top_right, bottom_right)
+    top_wall = Line(top_left, top_right)
+    bottom_wall = Line(bottom_right, bottom_left)
 
-    top_wall.draw(canvas, fill)
-    right_wall.draw(canvas, fill)
-    bottom_wall.draw(canvas, fill)
-    left_wall.draw(canvas, fill)
+    if self.has_left_wall:
+      left_wall.draw(canvas, fill)
+    if self.has_right_wall:
+      right_wall.draw(canvas, fill)
+    if self.has_top_wall:
+      top_wall.draw(canvas, fill)
+    if self.has_bottom_wall:
+      bottom_wall.draw(canvas, fill)
 
     
