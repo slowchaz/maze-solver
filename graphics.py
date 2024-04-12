@@ -3,7 +3,7 @@ from tkinter import Tk, BOTH, Canvas
 class Window:
     def __init__(self, width, height):
       self.__root = Tk()
-      self.__root.title("Default Title")
+      self.__root.title("Maze Runner")
       self.__canvas = Canvas(self.__root, width=width, height=height)
       self.__canvas.pack(fill=BOTH, expand=1)
       self.__running = False
@@ -56,6 +56,8 @@ class Cell:
     self._win = win
   
   def draw(self, x1, y1, x2, y2):
+    if self._win is None:
+        return
     self._x1 = x1
     self._y1 = y1
     self._x2 = x2
@@ -79,5 +81,49 @@ class Cell:
       self._win.draw_line(top_wall)
     if self.has_bottom_wall:
       self._win.draw_line(bottom_wall)
+
+
+  def draw_move(self, to_cell, undo=False):
+    if self._win is None:
+      return
+    
+    color = "gray" if undo else "red"
+
+    cell_one_x_center = (self._x1 + self._x2) / 2
+    cell_one_y_center = (self._y1 + self._y2) / 2
+
+    cell_two_x_center = (to_cell._x1 + to_cell._x2) / 2
+    cell_two_y_center = (to_cell._y1 + to_cell._y2) / 2
+
+    # line = Line(Point(cell_one_x_center, cell_one_y_center), Point(cell_two_x_center, cell_two_y_center))
+
+    # self._win.draw_line(line, color)
+    # moving left
+    if self._x1 > to_cell._x1:
+        line = Line(Point(self._x1, cell_one_y_center), Point(cell_one_x_center, cell_one_y_center))
+        self._win.draw_line(line, color)
+        line = Line(Point(cell_two_x_center, cell_two_y_center), Point(to_cell._x2, cell_two_y_center))
+        self._win.draw_line(line, color)
+
+    # moving right
+    elif self._x1 < to_cell._x1:
+        line = Line(Point(cell_one_x_center, cell_one_y_center), Point(self._x2, cell_one_y_center))
+        self._win.draw_line(line, color)
+        line = Line(Point(to_cell._x1, cell_two_y_center), Point(cell_two_x_center, cell_two_y_center))
+        self._win.draw_line(line, color)
+
+    # moving up
+    elif self._y1 > to_cell._y1:
+        line = Line(Point(cell_one_x_center, cell_one_y_center), Point(cell_one_x_center, self._y1))
+        self._win.draw_line(line, color)
+        line = Line(Point(cell_two_x_center, to_cell._y2), Point(cell_two_x_center, cell_two_y_center))
+        self._win.draw_line(line, color)
+
+    # moving down
+    elif self._y1 < to_cell._y1:
+        line = Line(Point(cell_one_x_center, cell_one_y_center), Point(cell_one_x_center, self._y2))
+        self._win.draw_line(line, color)
+        line = Line(Point(cell_two_x_center, cell_two_y_center), Point(cell_two_x_center, to_cell._y1))
+        self._win.draw_line(line, color)
 
     
