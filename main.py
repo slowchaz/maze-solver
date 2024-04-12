@@ -4,22 +4,24 @@ def main():
     print("Hello!")
     win = Window(800, 600)
 
-    # point_start = Point(0, 0)
-    # point_end = Point(150, 150)
+    c = Cell(win)
+    c.draw(150, 150, 350, 350)
 
-    # line = Line(point_start, point_end)
+    c = Cell(win)
+    c.has_left_wall = False
+    c.draw(50, 50, 100, 100)
 
-    # win.draw_line(line, "teal")
+    c = Cell(win)
+    c.has_right_wall = False
+    c.draw(125, 125, 200, 200)
 
-    # point_start = Point(150, 150)
-    # point_end = Point(0, 300)
+    c = Cell(win)
+    c.has_bottom_wall = False
+    c.draw(225, 225, 250, 250)
 
-    # line = Line(point_start, point_end)
-
-    # win.draw_line(line, "teal")
-
-    cell = Cell(150, 150, 300, 300, False, True, False, True, True)
-    win.draw_cell(cell, "teal")
+    c = Cell(win)
+    c.has_top_wall = False
+    c.draw(300, 300, 500, 500)
 
     win.wait_for_close()
     print("Goodbye!")
