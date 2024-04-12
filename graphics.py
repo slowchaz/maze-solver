@@ -36,5 +36,5 @@ class Line:
         self.end = end
     
     def draw(self, canvas, fill):
-        canvas.create_line(self.__start.x, self.__start.y, self.__end.x, self.__end.y, fill=fill, width=2)
+        canvas.create_line(self.start.x, self.start.y, self.end.x, self.end.y, fill=fill, width=2)
         canvas.pack(fill=BOTH, expand=1)
